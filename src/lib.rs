@@ -96,7 +96,7 @@ async fn read_loop<R>(mut reader: R, sender1: BufSender, sender2: BufSender)
 where
     R: AsyncRead + Send + Unpin + 'static,
 {
-    while !sender1.is_closed() && !sender2.is_closed() {
+    while !sender1.is_closed() || !sender2.is_closed() {
         let mut buf = [0; 8 * 1024];
         let res = reader.read(&mut buf).await;
         match res {
