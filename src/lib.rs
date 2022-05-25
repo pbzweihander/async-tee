@@ -1,8 +1,8 @@
+use std::future::Future;
 use std::marker::Unpin;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 
-use futures_core::future::BoxFuture;
 use futures_util::join;
 
 #[cfg(feature = "runtime-async-std")]
@@ -22,7 +22,9 @@ use tokio::{
 type BufReceiver = Receiver<Result<Vec<u8>, Error>>;
 type BufSender = Sender<Result<Vec<u8>, Error>>;
 
-type RecvState = BoxFuture<'static, (BufReceiver, Option<Result<Vec<u8>, Error>>)>;
+type RecvState = Pin<
+    Box<dyn Future<Output = (BufReceiver, Option<Result<Vec<u8>, Error>>)> + Send + Sync + 'static>,
+>;
 
 enum TeeReaderState {
     Idle(BufReceiver),

@@ -9,7 +9,6 @@ runtime-tokio = ["tokio"]
 
 [dependencies]
 async-std = { version = "1.11.0", optional = true }
-futures-core = "0.3.21"
 futures-util = "0.3.21"
 tokio = { version = "1.18.2", features = ["rt", "sync", "io-util"], optional = true }
 
