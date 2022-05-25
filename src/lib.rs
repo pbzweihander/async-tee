@@ -101,6 +101,9 @@ where
         let res = reader.read(&mut buf).await;
         match res {
             Ok(read) => {
+                if read == 0 {
+                    break;
+                }
                 let buf = buf[..read].to_vec();
                 let fut1 = sender1.send(Ok(buf.clone()));
                 let fut2 = sender2.send(Ok(buf));
