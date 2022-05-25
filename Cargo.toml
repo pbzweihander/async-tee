@@ -1,0 +1,26 @@
+[package]
+name = "async-tee"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+runtime-async-std = ["async-std"]
+runtime-tokio = ["tokio"]
+
+[dependencies]
+async-std = { version = "1.11.0", optional = true }
+futures-core = "0.3.21"
+futures-util = "0.3.21"
+tokio = { version = "1.18.2", features = ["rt", "sync", "io-util"], optional = true }
+
+[dev-dependencies]
+async-std = { version = "1.11.0", features = ["attributes"] }
+tokio = { version = "1.18.2", features = ["macros", "fs"] }
+
+[[test]]
+name = "async-std"
+required-features = ["runtime-async-std"]
+
+[[test]]
+name = "tokio"
+required-features = ["runtime-tokio"]
