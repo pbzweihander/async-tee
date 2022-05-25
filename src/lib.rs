@@ -102,7 +102,6 @@ where
         match res {
             Ok(read) => {
                 let buf = buf[..read].to_vec();
-                println!("{:?}", buf);
                 let fut1 = sender1.send(Ok(buf.clone()));
                 let fut2 = sender2.send(Ok(buf));
                 let _ = join!(fut1, fut2);
